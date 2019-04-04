@@ -1,6 +1,7 @@
 package ambientaltruck;
 
-import javax.swing.JOptionPane;
+import control.OracleConection;
+import java.awt.Color;
 
 public class Login extends javax.swing.JFrame {
     public Login() {
@@ -39,6 +40,22 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Password");
 
         btningresar.setText("Ingresar");
+        btningresar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                btningresarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                btningresarFocusLost(evt);
+            }
+        });
+        btningresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btningresarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btningresarMouseExited(evt);
+            }
+        });
         btningresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btningresarActionPerformed(evt);
@@ -76,14 +93,11 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btningresar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(191, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtuser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                            .addComponent(txtpass, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(btningresar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtuser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                        .addComponent(txtpass, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(165, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -111,7 +125,9 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +153,8 @@ public class Login extends javax.swing.JFrame {
     private void txtuserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtuserKeyTyped
         
         if(Character.isLetter(evt.getKeyChar())||Character.isDigit(evt.getKeyChar())){
-            if(txtuser.getText().length()==15){
+            
+            if(txtuser.getText().length()==15 && txtuser.getSelectedText()==null){
                 evt.consume();
             }
         }else{
@@ -148,7 +165,7 @@ public class Login extends javax.swing.JFrame {
 
     private void txtpassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpassKeyTyped
         if(Character.isLetter(evt.getKeyChar())||Character.isDigit(evt.getKeyChar())){
-            if(String.valueOf(txtpass.getPassword()).length()==8){
+            if(String.valueOf(txtpass.getPassword()).length()==8 && txtpass.getSelectedText()==null){
                 evt.consume();
             }
         }else{
@@ -157,10 +174,24 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtpassKeyTyped
 
     private void txtuserMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtuserMouseReleased
-        if(txtuser.getSelectedText()!=null){
-            JOptionPane.showMessageDialog(this, txtuser.getSelectedText());
-        }
+
     }//GEN-LAST:event_txtuserMouseReleased
+
+    private void btningresarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btningresarFocusGained
+        
+    }//GEN-LAST:event_btningresarFocusGained
+
+    private void btningresarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btningresarFocusLost
+        
+    }//GEN-LAST:event_btningresarFocusLost
+
+    private void btningresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btningresarMouseEntered
+        btningresar.setBackground(Color.green);
+    }//GEN-LAST:event_btningresarMouseEntered
+
+    private void btningresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btningresarMouseExited
+        btningresar.setBackground(Color.white);
+    }//GEN-LAST:event_btningresarMouseExited
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -195,8 +226,9 @@ public class Login extends javax.swing.JFrame {
 
     private boolean autenticar(){
        
-        return txtuser.getText().equals("adm") && String.valueOf(txtpass.getPassword()).equals("123");
-        
+        OracleConection conexion = new OracleConection();
+        conexion.Conectar();
+        return true;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btningresar;
