@@ -2,14 +2,20 @@ package ambientaltruck;
 
 import control.OracleConection;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import model.User;
 
 public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setName("Ingreso");
-    }
+        this.setTitle("Ambiental Truck");
+        ImageIcon img = new ImageIcon("D:\\Documentos\\NetBeansProjects\\PrimerPerceptron\\AmbientalTruck\\src\\img\\icon.png");
+        this.setIconImage(img.getImage());
+              
+   }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -63,6 +69,9 @@ public class Login extends javax.swing.JFrame {
         });
 
         txtpass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtpassKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtpassKeyTyped(evt);
             }
@@ -139,15 +148,10 @@ public class Login extends javax.swing.JFrame {
 
     private void btningresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btningresarActionPerformed
         
-        if(autenticar()){
-            Inicio i=new Inicio();
-            this.dispose();
-            i.setVisible(true);
-        }
+        ingresar();
     }//GEN-LAST:event_btningresarActionPerformed
 
     private void txtuserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtuserKeyPressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtuserKeyPressed
 
     private void txtuserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtuserKeyTyped
@@ -164,25 +168,23 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtuserKeyTyped
 
     private void txtpassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpassKeyTyped
-        if(Character.isLetter(evt.getKeyChar())||Character.isDigit(evt.getKeyChar())){
-            if(String.valueOf(txtpass.getPassword()).length()==8 && txtpass.getSelectedText()==null){
-                evt.consume();
-            }
-        }else{
+        
+            if(Character.isLetter(evt.getKeyChar())||Character.isDigit(evt.getKeyChar())){
+                if(String.valueOf(txtpass.getPassword()).length()==8 && txtpass.getSelectedText()==null){
+                    evt.consume();
+                }
+            }else{
             evt.consume();
-        }
+            }
+        
     }//GEN-LAST:event_txtpassKeyTyped
 
     private void txtuserMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtuserMouseReleased
-
     }//GEN-LAST:event_txtuserMouseReleased
 
     private void btningresarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btningresarFocusGained
-        
     }//GEN-LAST:event_btningresarFocusGained
-
     private void btningresarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btningresarFocusLost
-        
     }//GEN-LAST:event_btningresarFocusLost
 
     private void btningresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btningresarMouseEntered
@@ -192,6 +194,13 @@ public class Login extends javax.swing.JFrame {
     private void btningresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btningresarMouseExited
         btningresar.setBackground(Color.white);
     }//GEN-LAST:event_btningresarMouseExited
+
+    private void txtpassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpassKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            ingresar();
+        }
+    }//GEN-LAST:event_txtpassKeyPressed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -224,11 +233,11 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
-    private boolean autenticar(){
+    private void ingresar(){
        
-        OracleConection conexion = new OracleConection();
-        conexion.Conectar();
-        return true;
+        Inicio i=new Inicio(new User("user","password",1));
+        this.dispose();
+        i.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btningresar;
