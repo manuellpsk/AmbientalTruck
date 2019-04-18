@@ -245,7 +245,7 @@ public class Login extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
             }
        }catch(NumberFormatException e){
-           System.out.println("Error al parsear");
+           JOptionPane.showMessageDialog(this, "Ingrese datos validos");
        }
         
     }
