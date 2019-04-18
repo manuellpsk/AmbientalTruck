@@ -1,9 +1,10 @@
 package ambientaltruck;
 
-import control.OracleConection;
+import control.Consulta;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import model.User;
 
 public class Login extends javax.swing.JFrame {
@@ -234,10 +235,19 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void ingresar(){
-       
-        Inicio i=new Inicio(new User("user","password",1));
-        this.dispose();
-        i.setVisible(true);
+       try{
+            if(new Consulta().validarUsuario(Integer.parseInt(txtuser.getText()), String.valueOf(txtpass.getPassword()))){
+                 Inicio i=new Inicio(new User("user","password",1));
+                 this.dispose();
+                 i.setVisible(true);
+                 i.setExtendedState(MAXIMIZED_BOTH);
+            }else{
+                 JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+            }
+       }catch(NumberFormatException e){
+           System.out.println("Error al parsear");
+       }
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btningresar;

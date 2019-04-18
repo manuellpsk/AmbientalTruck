@@ -1,20 +1,76 @@
 package ambientaltruck;
 
+import control.Consulta;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import model.Datos;
 import model.User;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.time.Second;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 
 public class Inicio extends javax.swing.JFrame {
 
+    TimeSeries  seriesp=new TimeSeries("Pressure");
+    TimeSeries  seriest=new TimeSeries("Temperature");
+    TimeSeriesCollection dataset=new TimeSeriesCollection();
+    Consulta c=new Consulta();
+    Thread t=new Thread(){
+            @Override public void run(){
+                Second current = new Second( );  
+                while(true){
+                    try {
+                        for(Datos vv:c.dataViajes(1)){
+                            seriesp.add(current,vv.getPresion());
+                            seriest.add(current,vv.getPresion()+1);
+                            Thread.sleep(1000);
+                            current = ( Second ) current.next( ); 
+                        }
+                        break;
+                    } catch (InterruptedException ex) {
+                        System.out.println("Error ...");
+                    }
+                }
+            }
+        };
+    
     public Inicio() {
         initComponents();
-        
+                
     }
     public Inicio(User user) {
         initComponents();
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        txtb.setText(user.toString());
     }
 
+    //metodo para cargar los componente del panel Grafica
+    //creando las lineas del grafico
+    private void loadPanelGrafica(){
+        this.setLayout(new BorderLayout());
+        this.setResizable(false);
+        panelHistorial.setVisible(false);
+        panelComunicacion.setVisible(false);
+        panelBienvenida.setVisible(false);
+        this.setLayout(new BorderLayout());
+        dataset.addSeries(seriesp);
+        dataset.addSeries(seriest);
+        JFreeChart chart=ChartFactory.createTimeSeriesChart("Grafico", "Time", "Sensor Reading", dataset, true , true , false);
+        this.add(new ChartPanel(chart),BorderLayout.CENTER);
+
+        XYPlot plot = chart.getXYPlot();
+
+        XYLineAndShapeRenderer r1 = new XYLineAndShapeRenderer();
+        r1.setSeriesPaint(0, Color.BLUE); 
+        r1.setSeriesShapesVisible(0,  false);
+        r1.setSeriesShapesVisible(1,  false);
+        plot.setRenderer(r1);
+        t.start();
+            
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -24,59 +80,74 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        txtb = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        panelComunicacion = new javax.swing.JPanel();
+        panelHistorial = new javax.swing.JPanel();
+        panelBienvenida = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        menuGrafica = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        menuHistorial = new javax.swing.JMenu();
+        menuComunicacion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setExtendedState(1);
 
-        txtb.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtb.setText("Bienvenido");
+        javax.swing.GroupLayout panelComunicacionLayout = new javax.swing.GroupLayout(panelComunicacion);
+        panelComunicacion.setLayout(panelComunicacionLayout);
+        panelComunicacionLayout.setHorizontalGroup(
+            panelComunicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1048, Short.MAX_VALUE)
+        );
+        panelComunicacionLayout.setVerticalGroup(
+            panelComunicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 406, Short.MAX_VALUE)
+        );
 
-        jButton1.setBackground(new java.awt.Color(255, 102, 102));
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout panelHistorialLayout = new javax.swing.GroupLayout(panelHistorial);
+        panelHistorial.setLayout(panelHistorialLayout);
+        panelHistorialLayout.setHorizontalGroup(
+            panelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1048, Short.MAX_VALUE)
+        );
+        panelHistorialLayout.setVerticalGroup(
+            panelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 406, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelBienvenidaLayout = new javax.swing.GroupLayout(panelBienvenida);
+        panelBienvenida.setLayout(panelBienvenidaLayout);
+        panelBienvenidaLayout.setHorizontalGroup(
+            panelBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1048, Short.MAX_VALUE)
+        );
+        panelBienvenidaLayout.setVerticalGroup(
+            panelBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 406, Short.MAX_VALUE)
+        );
+
+        menuGrafica.setText("Gráfica");
+        menuGrafica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                menuGraficaActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(201, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtb, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(182, 182, 182))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap())))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(txtb, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
+        jMenuItem1.setText("Iniciar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuGrafica.add(jMenuItem1);
 
-        jMenu1.setText("Gráfica");
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuGrafica);
 
-        jMenu2.setText("Historial");
-        jMenuBar1.add(jMenu2);
+        menuHistorial.setText("Historial");
+        jMenuBar1.add(menuHistorial);
 
-        jMenu3.setText("Comunicación");
-        jMenuBar1.add(jMenu3);
+        menuComunicacion.setText("Comunicación");
+        jMenuBar1.add(menuComunicacion);
 
         setJMenuBar(jMenuBar1);
 
@@ -84,20 +155,31 @@ public class Inicio extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelHistorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelComunicacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelHistorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelComunicacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void menuGraficaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGraficaActionPerformed
         
-        System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_menuGraficaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        loadPanelGrafica();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,12 +218,13 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel txtb;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu menuComunicacion;
+    private javax.swing.JMenu menuGrafica;
+    private javax.swing.JMenu menuHistorial;
+    private javax.swing.JPanel panelBienvenida;
+    private javax.swing.JPanel panelComunicacion;
+    private javax.swing.JPanel panelHistorial;
     // End of variables declaration//GEN-END:variables
 }
