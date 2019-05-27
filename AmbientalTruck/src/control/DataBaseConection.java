@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class OracleConection {
+public class DataBaseConection {
     private Connection conexion;
     
      public Connection getConexion() {
@@ -14,12 +14,12 @@ public class OracleConection {
         this.conexion = conexion;
     }
     
-    public OracleConection Conectar()
+    public DataBaseConection Conectar()
     {
         try{
-        Class.forName("oracle.jdbc.OracleDriver");
-        String BaseDeDatos = "jdbc:oracle:thin:@localhost:1521:XE";
-        conexion= DriverManager.getConnection(BaseDeDatos,"system","123");
+        Class.forName("com.mysql.jdbc.Driver");
+        String BaseDeDatos = "jdbc:mysql://localhost:3306/ti";
+        conexion= DriverManager.getConnection(BaseDeDatos,"root","");
         if(conexion!=null)
         {
         System.out.println("Conexion exitosa a esquema HR");

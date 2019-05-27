@@ -11,7 +11,7 @@ public class Consulta {
     
     private Connection cn = null;
     private ArrayList<Datos> lista=new ArrayList<>();
-    OracleConection con=null;
+    DataBaseConection con=null;
     public Consulta(){
         
     }
@@ -19,17 +19,17 @@ public class Consulta {
     public ArrayList<Datos> dataViajes(int id){
         try {
             lista.clear();
-            con=new OracleConection().Conectar();
+            con=new DataBaseConection().Conectar();
             cn=con.getConexion();
             Statement st;
             st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String query = "SELECT ID_VIAJE,TO_CHAR (FECHA, 'HH24:MI:SS') AS TIEMPO,PRESION,ID_TRANSPORTE FROM PRUEBAS.VIAJE WHERE ID_TRANSPORTE="+id;
+            String query = "SELECT TIME(FECHA) AS FECHA,TEMPERATURA FROM VIAJE";
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                String tiempo=rs.getString("TIEMPO");
+                String tiempo=rs.getString("FECHA");
                 String[] temp=tiempo.split(":");
                 
-                Datos dato = new Datos(Integer.parseInt(temp[0]),Integer.parseInt(temp[0]),Integer.parseInt(temp[0]),rs.getFloat("PRESION"));
+                Datos dato = new Datos(Integer.parseInt(temp[0]),Integer.parseInt(temp[0]),Integer.parseInt(temp[0]),rs.getFloat("TEMPERATURA"));
                 lista.add(dato);
             }
             if (lista.isEmpty()) {
@@ -45,15 +45,14 @@ public class Consulta {
     public boolean validarUsuario(int usuario,String password){
         boolean f=false;
         try {
-            con=new OracleConection().Conectar();
+            con=new DataBaseConection().Conectar();
             cn=con.getConexion();
             Statement st;
             st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String query = "SELECT * FROM PRUEBAS.USUARIO WHERE ID_USUARIO='"+usuario+"' AND PASS='"+password+"'";
+            String query = "SELECT * FROM USUARIO WHERE ID_USUARIO='"+usuario+"' AND PASS='"+password+"'";
             ResultSet rs = st.executeQuery(query);
             if(rs.next()){
                 f=true;
-
             }
         } catch (SQLException e) {
             System.out.println("Error en database"+e.getMessage());

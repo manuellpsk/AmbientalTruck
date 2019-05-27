@@ -4,14 +4,14 @@ public class Datos {
     private int hora;
     private int minuto;
     private int segudo;
-    private float presion;
+    private float temperatura;
 
-    public Datos(int hora, int minuto, int segudo, float presion) {
+    public Datos(int hora, int minuto, int segudo, float temperatura) {
         
         this.hora = hora;
         this.minuto = minuto;
         this.segudo = segudo;
-        this.presion = presion;
+        this.temperatura = temperatura;
     }
 
     public int getHora() {
@@ -39,11 +39,11 @@ public class Datos {
     }
 
     public float getPresion() {
-        return presion;
+        return temperatura;
     }
 
-    public void setPresion(float presion) {
-        this.presion = presion;
+    public void setPresion(float temperatura) {
+        this.temperatura = temperatura;
     }
     
     
