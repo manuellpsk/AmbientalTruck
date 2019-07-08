@@ -4,14 +4,16 @@ public class Transporte {
     private int id_transporte;
     private Empleado empleado;
     private Camion camion;
+    private String destino;
 
     public Transporte() {
     }
 
-    public Transporte(int id_transporte, Empleado empleado, Camion camion) {
+    public Transporte(int id_transporte, Empleado empleado, Camion camion, String destino) {
         this.id_transporte = id_transporte;
         this.empleado = empleado;
         this.camion = camion;
+        this.destino = destino;
     }
 
     public int getId_transporte() {
@@ -37,6 +39,14 @@ public class Transporte {
     public void setCamion(Camion camion) {
         this.camion = camion;
     }
-    
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
     
 }

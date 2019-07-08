@@ -1,38 +1,52 @@
 package model;
 public class User {
 
-    private String id;
-    private String password;
-    private int tipo;
-    
-    public User(String id, String password, int tipo){
-        this.id=id;
-        this.password=password;
-        this.tipo=tipo;
+    private String id_usuario;
+    private String pass;
+    private int id_tipo;
+    private int rut;
+
+    public User() {
     }
 
-    public String getId() {
-        return id;
+    public User(String id_usuario, String pass, int id_tipo, int rut) {
+        this.id_usuario = id_usuario;
+        this.pass = pass;
+        this.id_tipo = id_tipo;
+        this.rut = rut;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getId_usuario() {
+        return id_usuario;
     }
 
-    public String getPassword() {
-        return password;
+    public void setId_usuario(String id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getPass() {
+        return pass;
     }
 
-    public int getTipo() {
-        return tipo;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+    public int getId_tipo() {
+        return id_tipo;
     }
+
+    public void setId_tipo(int id_tipo) {
+        this.id_tipo = id_tipo;
+    }
+
+    public int getRut() {
+        return rut;
+    }
+
+    public void setRut(int rut) {
+        this.rut = rut;
+    }
+
     
 }

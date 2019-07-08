@@ -1,21 +1,31 @@
 package model;
 public class Sustancia {
     
+    private int id_sus;
     private String nombre;
-    private float tempmax;
-    private float presmax;
-    private float tempmin;
-    private float presmin;
+    private float temp_min;
+    private float temp_max;
+    private float presion_min;
+    private float presion_max;
 
     public Sustancia() {
     }
 
-    public Sustancia(String nombre, float tempmax, float presmax, float tempmin, float presmin) {
+    public Sustancia(int id_sus, String nombre, float temp_min, float temp_max, float presion_min, float presion_max) {
+        this.id_sus = id_sus;
         this.nombre = nombre;
-        this.tempmax = tempmax;
-        this.presmax = presmax;
-        this.tempmin = tempmin;
-        this.presmin = presmin;
+        this.temp_min = temp_min;
+        this.temp_max = temp_max;
+        this.presion_min = presion_min;
+        this.presion_max = presion_max;
+    }
+
+    public int getId_sus() {
+        return id_sus;
+    }
+
+    public void setId_sus(int id_sus) {
+        this.id_sus = id_sus;
     }
 
     public String getNombre() {
@@ -26,36 +36,36 @@ public class Sustancia {
         this.nombre = nombre;
     }
 
-    public float getTempmax() {
-        return tempmax;
+    public float getTemp_min() {
+        return temp_min;
     }
 
-    public void setTempmax(float tempmax) {
-        this.tempmax = tempmax;
+    public void setTemp_min(float temp_min) {
+        this.temp_min = temp_min;
     }
 
-    public float getPresmax() {
-        return presmax;
+    public float getTemp_max() {
+        return temp_max;
     }
 
-    public void setPresmax(float presmax) {
-        this.presmax = presmax;
+    public void setTemp_max(float temp_max) {
+        this.temp_max = temp_max;
     }
 
-    public float getTempmin() {
-        return tempmin;
+    public float getPresion_min() {
+        return presion_min;
     }
 
-    public void setTempmin(float tempmin) {
-        this.tempmin = tempmin;
+    public void setPresion_min(float presion_min) {
+        this.presion_min = presion_min;
     }
 
-    public float getPresmin() {
-        return presmin;
+    public float getPresion_max() {
+        return presion_max;
     }
 
-    public void setPresmin(float presmin) {
-        this.presmin = presmin;
+    public void setPresion_max(float presion_max) {
+        this.presion_max = presion_max;
     }
 
     

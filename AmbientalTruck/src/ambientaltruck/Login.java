@@ -2,8 +2,8 @@ package ambientaltruck;
 
 import control.Consulta;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.User;
 
@@ -13,8 +13,7 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Ambiental Truck");
-        ImageIcon img = new ImageIcon("D:\\Documentos\\NetBeansProjects\\PrimerPerceptron\\AmbientalTruck\\src\\img\\icon.png");
-        this.setIconImage(img.getImage());
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("..//img//icon.png")));
               
    }
     @SuppressWarnings("unchecked")
@@ -29,11 +28,11 @@ public class Login extends javax.swing.JFrame {
         btningresar = new javax.swing.JButton();
         txtpass = new javax.swing.JPasswordField();
         txtuser = new javax.swing.JTextField();
+        brnRegistro = new javax.swing.JButton();
 
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(450, 350));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
         jPanel1.setPreferredSize(new java.awt.Dimension(450, 350));
@@ -94,26 +93,37 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        brnRegistro.setText("Registro");
+        brnRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brnRegistroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btningresar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtuser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                        .addComponent(txtpass, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(147, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(144, 144, 144))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btningresar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(brnRegistro))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtuser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                            .addComponent(txtpass, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,9 +138,11 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71)
-                .addComponent(btningresar)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btningresar)
+                    .addComponent(brnRegistro))
+                .addGap(66, 66, 66))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,6 +214,11 @@ public class Login extends javax.swing.JFrame {
             ingresar();
         }
     }//GEN-LAST:event_txtpassKeyPressed
+
+    private void brnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnRegistroActionPerformed
+        this.dispose();
+        new Registro().setVisible(true);
+    }//GEN-LAST:event_brnRegistroActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -236,13 +253,13 @@ public class Login extends javax.swing.JFrame {
 
     private void ingresar(){
        try{
-            if(new Consulta().validarUsuario(Integer.parseInt(txtuser.getText()), String.valueOf(txtpass.getPassword()))){
-                 Inicio i=new Inicio(new User("user","password",1));
+            if(new Consulta().validarUsuario(txtuser.getText(), String.valueOf(txtpass.getPassword()))){
+                 Inicio i=new Inicio(new User("user","password",1,123));
                  this.dispose();
                  i.setVisible(true);
                  i.setExtendedState(MAXIMIZED_BOTH);
             }else{
-                 JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+                 JOptionPane.showMessageDialog(this, "Datos incorrecto");
             }
        }catch(NumberFormatException e){
            JOptionPane.showMessageDialog(this, "Ingrese datos validos");
@@ -250,6 +267,7 @@ public class Login extends javax.swing.JFrame {
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton brnRegistro;
     private javax.swing.JButton btningresar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

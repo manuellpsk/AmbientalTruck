@@ -6,20 +6,19 @@ public class Empleado {
     private String apellido;
     private int telefono;
     private String correo;
-    private String id_usu;
-    private int tipo_empleado;
+    private int id_tipo_empleado;
 
     public Empleado() {
+        
     }
 
-    public Empleado(int rut, String nombre, String apellido, int telefono, String correo, String id_usu, int tipo_empleado) {
+    public Empleado(int rut, String nombre, String apellido, int telefono, String correo, int id_tipo_empleado) {
         this.rut = rut;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
-        this.id_usu = id_usu;
-        this.tipo_empleado = tipo_empleado;
+        this.id_tipo_empleado = id_tipo_empleado;
     }
 
     public int getRut() {
@@ -62,22 +61,14 @@ public class Empleado {
         this.correo = correo;
     }
 
-    public String getId_usu() {
-        return id_usu;
+    public int getId_tipo_empleado() {
+        return id_tipo_empleado;
     }
 
-    public void setId_usu(String id_usu) {
-        this.id_usu = id_usu;
+    public void setId_tipo_empleado(int id_tipo_empleado) {
+        this.id_tipo_empleado = id_tipo_empleado;
     }
 
-    public int getTipo_empleado() {
-        return tipo_empleado;
-    }
+    
 
-    public void setTipo_empleado(int tipo_empleado) {
-        this.tipo_empleado = tipo_empleado;
-    }
-    
-    
-    
 }

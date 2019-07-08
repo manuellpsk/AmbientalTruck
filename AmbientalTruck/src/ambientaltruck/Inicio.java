@@ -1,9 +1,10 @@
 package ambientaltruck;
 
 import control.Consulta;
+import control.HttpCliente;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import model.Datos;
+import java.awt.Toolkit;
 import model.User;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -16,6 +17,7 @@ import org.jfree.data.time.TimeSeriesCollection;
 
 public class Inicio extends javax.swing.JFrame {
 
+    
     TimeSeries  seriesp=new TimeSeries("Pressure");
     TimeSeries  seriest=new TimeSeries("Temperature");
     TimeSeriesCollection dataset=new TimeSeriesCollection();
@@ -25,15 +27,17 @@ public class Inicio extends javax.swing.JFrame {
                 Second current = new Second( );  
                 while(true){
                     try {
-                        for(Datos vv:c.dataViajes(1)){
-                            seriesp.add(current,vv.getPresion());
-                            seriest.add(current,vv.getPresion()+1);
+                        while(true){
+                            String []dts=HttpCliente.getDato().split("-");
+                            double xT=Double.parseDouble(dts[0]);
+                            double xP=Double.parseDouble(dts[1]);
+                            seriesp.add(current,xT);
+                            seriest.add(current,xP);
                             Thread.sleep(1000);
                             current = ( Second ) current.next( ); 
                         }
-                        break;
                     } catch (InterruptedException ex) {
-                        System.out.println("Error ...");
+                        System.out.println("Error ..." +ex.getMessage());
                     }
                 }
             }
@@ -41,10 +45,11 @@ public class Inicio extends javax.swing.JFrame {
     
     public Inicio() {
         initComponents();
-                
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("..//img//icon.png")));        
     }
     public Inicio(User user) {
         initComponents();
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("..//img//icon.png")));
     }
 
     //metodo para cargar los componente del panel Grafica
@@ -84,10 +89,10 @@ public class Inicio extends javax.swing.JFrame {
         panelHistorial = new javax.swing.JPanel();
         panelBienvenida = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
         menuGrafica = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         menuHistorial = new javax.swing.JMenu();
-        menuComunicacion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -101,7 +106,7 @@ public class Inicio extends javax.swing.JFrame {
         );
         panelComunicacionLayout.setVerticalGroup(
             panelComunicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelHistorialLayout = new javax.swing.GroupLayout(panelHistorial);
@@ -112,7 +117,7 @@ public class Inicio extends javax.swing.JFrame {
         );
         panelHistorialLayout.setVerticalGroup(
             panelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelBienvenidaLayout = new javax.swing.GroupLayout(panelBienvenida);
@@ -123,8 +128,11 @@ public class Inicio extends javax.swing.JFrame {
         );
         panelBienvenidaLayout.setVerticalGroup(
             panelBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
         );
+
+        jMenu1.setText("Inicio");
+        jMenuBar1.add(jMenu1);
 
         menuGrafica.setText("Gráfica");
         menuGrafica.addActionListener(new java.awt.event.ActionListener() {
@@ -145,9 +153,6 @@ public class Inicio extends javax.swing.JFrame {
 
         menuHistorial.setText("Historial");
         jMenuBar1.add(menuHistorial);
-
-        menuComunicacion.setText("Comunicación");
-        jMenuBar1.add(menuComunicacion);
 
         setJMenuBar(jMenuBar1);
 
@@ -218,9 +223,9 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenu menuComunicacion;
     private javax.swing.JMenu menuGrafica;
     private javax.swing.JMenu menuHistorial;
     private javax.swing.JPanel panelBienvenida;
